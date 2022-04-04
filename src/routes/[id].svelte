@@ -1,3 +1,7 @@
+<svelte:head>
+  <title>Spotify Overlay</title>
+</svelte:head>
+
 <div class="container">
   <img src="/static/favicon.png" alt="Album Art" class="album-art" />
   <div class="info">

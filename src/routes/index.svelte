@@ -2,6 +2,10 @@
   let alpha: number = 255;
 </script>
 
+<svelte:head>
+  <title>Configuration | Spotify Overlay</title>
+</svelte:head>
+
 <div>
   <a href="0">
     <button class="connect">
