@@ -1,9 +1,11 @@
 <script lang="ts">
+  import Title from "$components/Title.svelte";
+
   let alpha: number = 255;
 </script>
 
 <svelte:head>
-  <title>Configuration | Spotify Overlay</title>
+  <Title />
 </svelte:head>
 
 <div>

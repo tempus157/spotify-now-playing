@@ -1,4 +1,6 @@
 <script lang="ts">
+  import Title from "$components/Title.svelte";
+
   import type { Output } from "./[id]";
 
   export let output: Output;
@@ -11,10 +13,14 @@
 </script>
 
 <svelte:head>
-  <title>Spotify Overlay</title>
+  {#if !output}
+    <Title value="Not Playing" />
+  {:else}
+    <Title value={`${output.track.name} - ${output.track.artist}`} />
+  {/if}
 </svelte:head>
 
-{#if output === undefined}
+{#if !output}
   <div />
 {:else}
   <div class="container">
@@ -24,7 +30,7 @@
         {output.track.name}
       </div>
       <div class={artistClass} bind:clientWidth={artistWidth}>
-        {output.track.artists.join(", ")}
+        {output.track.artist}
       </div>
     </div>
   </div>
@@ -44,7 +50,7 @@
     position: relative;
     width: 100vh;
     height: 100vh;
-    border-radius: 50px;
+    border-radius: 20vh;
   }
 
   .info {

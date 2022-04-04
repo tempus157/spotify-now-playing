@@ -11,7 +11,7 @@ type Body = {
 export type Output = {
   track: {
     name: string;
-    artists: string[];
+    artist: string;
     albumArt: string;
   };
 };
@@ -36,9 +36,9 @@ export const get: RequestHandler<Params, Body> = async ({ params }) => {
       output: {
         track: {
           name: json.item.name,
-          artists: json.item.artists.map(
-            (artist: { name: string }) => artist.name
-          ),
+          artist: json.item.artists
+            .map((artist: { name: string }) => artist.name)
+            .join(", "),
           albumArt: json.item.album.images[0].url,
         },
       },
