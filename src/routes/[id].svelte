@@ -1,21 +1,31 @@
 <script lang="ts">
-  import type { Track } from "./[id]";
+  import type { Output } from "./[id]";
 
-  export let track: Track;
+  export let output: Output;
+  let infoWidth: number;
+  let nameWidth: number;
+  let artistWidth: number;
+
+  $: nameClass = nameWidth > infoWidth ? "name scroll" : "name";
+  $: artistClass = artistWidth > infoWidth ? "artist scroll" : "artist";
 </script>
 
 <svelte:head>
   <title>Spotify Overlay</title>
 </svelte:head>
 
-{#if track === undefined}
+{#if output === undefined}
   <div />
 {:else}
   <div class="container">
-    <img src={track.albumArt} alt="Album Art" class="album-art" />
-    <div class="info">
-      <div class="name">{track.name}</div>
-      <div class="artist">{track.artists.join(", ")}</div>
+    <img src={output.track.albumArt} alt="Album Art" class="album-art" />
+    <div class="info" bind:clientWidth={infoWidth}>
+      <div class={nameClass} bind:clientWidth={nameWidth}>
+        {output.track.name}
+      </div>
+      <div class={artistClass} bind:clientWidth={artistWidth}>
+        {output.track.artists.join(", ")}
+      </div>
     </div>
   </div>
 {/if}
@@ -34,6 +44,7 @@
     position: relative;
     width: 100vh;
     height: 100vh;
+    border-radius: 50px;
   }
 
   .info {
