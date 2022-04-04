@@ -1,12 +1,18 @@
+<script lang="ts">
+  export let name: string;
+  export let artists: string[];
+  export let albumArt: string;
+</script>
+
 <svelte:head>
   <title>Spotify Overlay</title>
 </svelte:head>
 
 <div class="container">
-  <img src="/static/favicon.png" alt="Album Art" class="album-art" />
+  <img src={albumArt} alt="Album Art" class="album-art" />
   <div class="info">
-    <div class="name">Name</div>
-    <div class="artist">Artist</div>
+    <div class="name">{name}</div>
+    <div class="artist">{artists.join(", ")}</div>
   </div>
 </div>
 
@@ -55,7 +61,7 @@
   }
 
   .scroll {
-    animation: slide 100s linear infinite;
+    animation: slide 10s linear infinite;
   }
 
   @keyframes slide {
