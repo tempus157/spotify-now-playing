@@ -2,23 +2,23 @@
   import type { Track } from "./[id]";
 
   export let track: Track;
-  console.log(track);
 </script>
 
 <svelte:head>
   <title>Spotify Overlay</title>
 </svelte:head>
 
-<div class="container">
-  {#if track !== undefined}
-    <div>hello</div>
-  {/if}
-  <img src={track.albumArt} alt="Album Art" class="album-art" />
-  <div class="info">
-    <div class="name">{track.name}</div>
-    <div class="artist">{track.artists.join(", ")}</div>
+{#if track === undefined}
+  <div />
+{:else}
+  <div class="container">
+    <img src={track.albumArt} alt="Album Art" class="album-art" />
+    <div class="info">
+      <div class="name">{track.name}</div>
+      <div class="artist">{track.artists.join(", ")}</div>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap");

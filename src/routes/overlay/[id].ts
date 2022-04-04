@@ -19,16 +19,25 @@ export const get: RequestHandler<Params, Output> = async ({ params }) => {
     "https://api.spotify.com/v1/me/player/currently-playing",
     { headers: { Authorization: `Bearer ${params.id}` } }
   );
+
   if (res.status !== 200) {
     return { status: res.status };
   }
 
-  const json = (await res.json()).item;
-  const track: Track = {
-    name: json.name,
-    artists: json.artists.map((artist: { name: string }) => artist.name),
-    albumArt: json.album.images[0].url,
-  };
+  const json = await res.json();
+  if (!json.is_playing) {
+    return { status: 204 };
+  }
 
-  return { body: { track } };
+  return {
+    body: {
+      track: {
+        name: json.item.name,
+        artists: json.item.artists.map(
+          (artist: { name: string }) => artist.name
+        ),
+        albumArt: json.item.album.images[0].url,
+      },
+    },
+  };
 };
