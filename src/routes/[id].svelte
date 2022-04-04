@@ -1,12 +1,12 @@
 <div class="container">
-  <img src="/static/favicon.png" alt="Album art" class="album-art" />
+  <img src="/static/favicon.png" alt="Album Art" class="album-art" />
   <div class="info">
     <div class="name">Name</div>
     <div class="artist">Artist</div>
   </div>
 </div>
 
-<style lang="scss">
+<style>
   @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap");
 
   .container {

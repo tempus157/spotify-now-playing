@@ -1,4 +1,72 @@
-<h1>Welcome to SvelteKit</h1>
-<p>
-  Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
-</p>
+<script lang="ts">
+  let alpha: number = 255;
+</script>
+
+<div>
+  <a href="0">
+    <button class="connect">
+      <img src="/static/spotify.png" alt="Spotify Logo" />
+      <span>Connect Spotify</span>
+    </button>
+  </a>
+
+  <div>
+    <label>
+      <span>Song Name Color</span>
+      <input type="color" />
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <span>Artist Color</span>
+      <input type="color" />
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <span>Background Color</span>
+      <input type="color" />
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <span>Background Alpha</span>
+      <input type="range" min="0" max="255" bind:value={alpha} />
+      <span>{alpha}</span>
+    </label>
+  </div>
+
+  <div>
+    <input readonly value="url" />
+    <button>Copy URL</button>
+  </div>
+</div>
+
+<style>
+  :root {
+    --accent: #1db954;
+  }
+
+  .connect {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: var(--accent);
+    border-radius: 100px;
+    border-color: transparent;
+  }
+
+  .connect img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .connect span {
+    margin: 0 5px 0 10px;
+    color: white;
+    font-size: x-large;
+  }
+</style>
