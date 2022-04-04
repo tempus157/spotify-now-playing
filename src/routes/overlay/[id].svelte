@@ -1,7 +1,8 @@
 <script lang="ts">
-  export let name: string;
-  export let artists: string[];
-  export let albumArt: string;
+  import type { Track } from "./[id]";
+
+  export let track: Track;
+  console.log(track);
 </script>
 
 <svelte:head>
@@ -9,10 +10,13 @@
 </svelte:head>
 
 <div class="container">
-  <img src={albumArt} alt="Album Art" class="album-art" />
+  {#if track !== undefined}
+    <div>hello</div>
+  {/if}
+  <img src={track.albumArt} alt="Album Art" class="album-art" />
   <div class="info">
-    <div class="name">{name}</div>
-    <div class="artist">{artists.join(", ")}</div>
+    <div class="name">{track.name}</div>
+    <div class="artist">{track.artists.join(", ")}</div>
   </div>
 </div>
 
