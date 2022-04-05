@@ -1,16 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { mongoURI } from "$libs/env";
 
-let isConnected = false;
-
-export async function connectMongoose() {
-  if (isConnected) {
-    return;
-  }
-  await mongoose.connect(mongoURI);
-  isConnected = true;
-}
-
 export interface UserDocument extends Document {
   spotifyID: string;
   accessToken: string;
@@ -20,6 +10,8 @@ export interface UserDocument extends Document {
   backgroundColor: string;
   cornerRounding: number;
 }
+
+let isConnected = false;
 
 const schema = new Schema({
   spotifyID: { type: String, required: true, unique: true },
@@ -31,5 +23,13 @@ const schema = new Schema({
   cornerRounding: { type: Number, required: true, default: 40 },
 });
 
-export const UserModel =
+const UserModel =
   mongoose.models.User ?? mongoose.model<UserDocument>("User", schema);
+
+export async function getUserModel() {
+  if (!isConnected) {
+    await mongoose.connect(mongoURI);
+    isConnected = true;
+  }
+  return UserModel;
+}

@@ -24,8 +24,5 @@ export const get: RequestHandler = () => {
   url.searchParams.set("scope", scope);
   url.searchParams.set("state", state);
 
-  return {
-    status: 302,
-    headers: { location: url.toString() },
-  };
+  return { status: 302, headers: { location: url.toString() } };
 };

@@ -1,26 +1,8 @@
 import { clientID, clientSecret, indexURI } from "$libs/env";
-import { connectMongoose, UserModel } from "$libs/mongoose";
+import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
 
-type Output = {
-  accessToken: string;
-  refreshToken: string;
-};
-
-export const get: RequestHandler<Record<string, string>, Output> = async ({
-  url,
-}) => {
-  const code = url.searchParams.get("code");
-  const state = url.searchParams.get("state");
-
-  if (!state) {
-    console.log(code);
-    return {
-      status: 302,
-      headers: { location: "http://localhost:3000" },
-    };
-  }
-
+async function fetchToken(code: string) {
   const headers = {
     Authorization: `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
       "base64"
@@ -33,19 +15,42 @@ export const get: RequestHandler<Record<string, string>, Output> = async ({
   body.set("code", code);
   body.set("redirect_uri", `${indexURI}/api/auth/redirect`);
 
-  const json = await (
+  return await (
     await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers,
       body,
     })
   ).json();
+}
 
-  return {
-    status: 200,
-    body: {
-      accessToken: json.access_token,
-      refreshToken: json.refresh_token,
-    },
-  };
+export const get: RequestHandler = async ({ url }) => {
+  const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
+
+  // TODO Compare with prev state
+  if (!state) {
+    return { status: 302, headers: { location: indexURI } };
+  }
+
+  const token = await fetchToken(code);
+  const accessToken = token.access_token;
+  const refreshToken = token.refresh_token;
+
+  const profile = await (
+    await fetch("https://api.spotify.com/v1/me", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+  ).json();
+
+  const UserModel = await getUserModel();
+  await UserModel.findOneAndUpdate(
+    { spotifyID: profile.id },
+    { accessToken, refreshToken },
+    { upsert: true, new: true, setDefaultsOnInsert: true }
+  ).exec();
+
+  return { status: 302, headers: { location: indexURI } };
 };
