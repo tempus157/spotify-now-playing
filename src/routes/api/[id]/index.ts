@@ -16,13 +16,14 @@ export const get: RequestHandler<Params, NowPlaying> = async ({
   url,
 }) => {
   const secret = url.searchParams.get("secret");
-  if (!secret) {
-    return { status: 400 };
-  }
-
   const UserModel = await getUserModel();
   const user = await UserModel.findOne({ spotifyID: params.id });
-  if (secret !== user._id.toString()) {
+
+  if (!secret) {
+    return { status: 400 };
+  } else if (!user) {
+    return { status: 404 };
+  } else if (secret !== user._id.toString()) {
     return { status: 401 };
   }
 
