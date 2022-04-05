@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-  <Title />
+  <Title value="Overlay" />
 </svelte:head>
 
 {#if !output}
