@@ -13,8 +13,6 @@ export interface User {
   cornerRounding: number;
 }
 
-let isConnected = false;
-
 const schema = new Schema<User>({
   spotifyID: { type: String, required: true, unique: true },
   tokenExpiration: { type: Number, required: true },
@@ -27,13 +25,15 @@ const schema = new Schema<User>({
   cornerRounding: { type: Number, required: true, default: 40 },
 });
 
+let isConnected = false;
+
 export async function getUserModel() {
   if (!isConnected) {
     await mongoose.connect(mongoURI);
     isConnected = true;
   }
 
-  return !mongoose.models.User
-    ? mongoose.model<User>("User", schema)
-    : mongoose.model<User>("User");
+  return mongoose.models.User
+    ? mongoose.model<User>("User")
+    : mongoose.model<User>("User", schema);
 }
