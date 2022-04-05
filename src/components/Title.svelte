@@ -3,8 +3,8 @@
   export let value: string | null = null;
 </script>
 
-{#if value === null}
-  <title>{name}</title>
-{:else}
+{#if value}
   <title>{value} | {name}</title>
+{:else}
+  <title>{name}</title>
 {/if}
