@@ -6,7 +6,7 @@ function throwError(name: string): never {
 
 function loadVariable(name: string) {
   const result = process.env[name];
-  return !result ? throwError(name) : result;
+  return result ?? throwError(name);
 }
 
 export const clientID = loadVariable("CLIENT_ID");
