@@ -1,3 +1,4 @@
+import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
 
 type Params = {
@@ -10,12 +11,26 @@ export type NowPlaying = {
   albumArt: string;
 };
 
-export const get: RequestHandler<Params, NowPlaying> = async ({ params }) => {
+export const get: RequestHandler<Params, NowPlaying> = async ({
+  params,
+  url,
+}) => {
+  const secret = url.searchParams.get("secret");
+  if (!secret) {
+    return { status: 400 };
+  }
+
+  const UserModel = await getUserModel();
+  const user = await UserModel.findOne({ spotifyID: params.id });
+  if (secret !== user._id.toString()) {
+    return { status: 401 };
+  }
+
   const res = await fetch(
     "https://api.spotify.com/v1/me/player/currently-playing",
     {
       headers: {
-        Authorization: `Bearer ${params.id}`,
+        Authorization: `Bearer ${user.accessToken}`,
       },
     }
   );

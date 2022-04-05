@@ -12,12 +12,12 @@
   $: nameClass = nameWidth > infoWidth ? "name scroll" : "name";
   $: artistClass = artistWidth > infoWidth ? "artist scroll" : "artist";
 
-  onMount(() => {
-    async function fetchData() {
-      const res = await fetch(`/api/${$page.params.id}`);
-      nowPlaying = res.status === 200 ? await res.json() : null;
-    }
+  async function fetchData() {
+    const res = await fetch(`/api/${$page.params.id}${$page.url.search}`);
+    nowPlaying = res.status === 200 ? await res.json() : null;
+  }
 
+  onMount(() => {
     fetchData();
     setInterval(fetchData, 5000);
   });

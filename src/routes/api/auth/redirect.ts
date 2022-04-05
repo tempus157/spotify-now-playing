@@ -43,7 +43,7 @@ export const get: RequestHandler = async ({ url }) => {
     { spotifyID: profile.id },
     { accessToken, refreshToken },
     { upsert: true, new: true, setDefaultsOnInsert: true }
-  ).exec();
+  );
 
   return {
     status: 302,

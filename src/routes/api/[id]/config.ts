@@ -16,7 +16,7 @@ export type Config = {
 
 export const get: RequestHandler<Params, Config> = async ({ params }) => {
   const UserModel = await getUserModel();
-  const user = await UserModel.findOne({ spotifyID: params.id }).exec();
+  const user = await UserModel.findOne({ spotifyID: params.id });
   if (!user) {
     return { status: 404 };
   }
