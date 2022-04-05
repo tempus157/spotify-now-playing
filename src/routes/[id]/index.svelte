@@ -22,7 +22,7 @@
   onMount(() => {
     fetchConfig();
     fetchNowPlaying();
-    setInterval(fetchNowPlaying, 5000);
+    setInterval(fetchNowPlaying, 10000);
   });
 </script>
 
