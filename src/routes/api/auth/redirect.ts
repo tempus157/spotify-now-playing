@@ -26,13 +26,6 @@ async function fetchToken(code: string) {
 
 export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get("code");
-  const state = url.searchParams.get("state");
-
-  // TODO Compare with prev state
-  if (!state) {
-    return { status: 302, headers: { location: indexURI } };
-  }
-
   const token = await fetchToken(code);
   const accessToken = token.access_token;
   const refreshToken = token.refresh_token;
@@ -52,5 +45,10 @@ export const get: RequestHandler = async ({ url }) => {
     { upsert: true, new: true, setDefaultsOnInsert: true }
   ).exec();
 
-  return { status: 302, headers: { location: indexURI } };
+  return {
+    status: 302,
+    headers: {
+      location: indexURI,
+    },
+  };
 };

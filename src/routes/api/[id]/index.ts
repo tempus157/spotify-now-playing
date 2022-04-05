@@ -13,7 +13,11 @@ export type Output = {
 export const get: RequestHandler<Params, Output> = async ({ params }) => {
   const res = await fetch(
     "https://api.spotify.com/v1/me/player/currently-playing",
-    { headers: { Authorization: `Bearer ${params.id}` } }
+    {
+      headers: {
+        Authorization: `Bearer ${params.id}`,
+      },
+    }
   );
 
   if (res.status !== 200) {
