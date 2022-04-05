@@ -9,7 +9,7 @@
 <div>
   <a href="/api/auth">
     <button class="connect">
-      <img src="static/spotify.png" alt="Spotify Logo" />
+      <img src="/spotify.png" alt="Spotify Logo" />
       <span>Connect Spotify</span>
     </button>
   </a>
