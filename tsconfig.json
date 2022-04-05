@@ -3,7 +3,8 @@
   "compilerOptions": {
     "paths": {
       "$components/*": ["./src/components/*"],
-      "$routes/*": ["./src/routes/*"]
+      "$routes/*": ["./src/routes/*"],
+      "$libs/*": ["./src/libs/*"]
     }
   }
 }
