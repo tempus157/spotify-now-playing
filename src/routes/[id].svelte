@@ -1,36 +1,43 @@
 <script lang="ts">
+  import { onMount } from "svelte";
+  import { page } from "$app/stores";
   import Title from "$components/Title.svelte";
+  import type { Output } from "$routes/api/[id]";
 
-  import type { Output } from "./[id]";
-
-  export let output: Output;
   let infoWidth: number;
   let nameWidth: number;
   let artistWidth: number;
+  let output: Output | null;
 
   $: nameClass = nameWidth > infoWidth ? "name scroll" : "name";
   $: artistClass = artistWidth > infoWidth ? "artist scroll" : "artist";
+
+  onMount(() => {
+    async function fetchData() {
+      const res = await fetch(`/api/${$page.params.id}`);
+      output = res.status === 200 ? await res.json() : null;
+    }
+
+    fetchData();
+    setInterval(fetchData, 5000);
+  });
 </script>
 
 <svelte:head>
-  {#if !output}
-    <Title value="Not Playing" />
-  {:else}
-    <Title value={`${output.track.name} - ${output.track.artist}`} />
-  {/if}
+  <Title />
 </svelte:head>
 
 {#if !output}
   <div />
 {:else}
   <div class="container">
-    <img src={output.track.albumArt} alt="Album Art" class="album-art" />
+    <img src={output.albumArt} alt="Album Art" class="album-art" />
     <div class="info" bind:clientWidth={infoWidth}>
       <div class={nameClass} bind:clientWidth={nameWidth}>
-        {output.track.name}
+        {output.name}
       </div>
       <div class={artistClass} bind:clientWidth={artistWidth}>
-        {output.track.artist}
+        {output.artists.join(", ")}
       </div>
     </div>
   </div>

@@ -4,19 +4,13 @@ type Params = {
   id: string;
 };
 
-type Body = {
-  output: Output;
-};
-
 export type Output = {
-  track: {
-    name: string;
-    artist: string;
-    albumArt: string;
-  };
+  name: string;
+  artists: string[];
+  albumArt: string;
 };
 
-export const get: RequestHandler<Params, Body> = async ({ params }) => {
+export const get: RequestHandler<Params, Output> = async ({ params }) => {
   const res = await fetch(
     "https://api.spotify.com/v1/me/player/currently-playing",
     { headers: { Authorization: `Bearer ${params.id}` } }
@@ -32,16 +26,11 @@ export const get: RequestHandler<Params, Body> = async ({ params }) => {
   }
 
   return {
+    status: 200,
     body: {
-      output: {
-        track: {
-          name: json.item.name,
-          artist: json.item.artists
-            .map((artist: { name: string }) => artist.name)
-            .join(", "),
-          albumArt: json.item.album.images[0].url,
-        },
-      },
+      name: json.item.name,
+      artists: json.item.artists.map((artist: { name: string }) => artist.name),
+      albumArt: json.item.album.images[0].url,
     },
   };
 };

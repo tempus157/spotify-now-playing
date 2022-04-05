@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <Title />
+  <Title value="Configuration" />
 </svelte:head>
 
 <div>
