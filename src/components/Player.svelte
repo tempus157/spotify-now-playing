@@ -1,4 +1,6 @@
 <script lang="ts">
+  import cssVariable from "$libs/cssVariable";
+
   export let songName: string;
   export let artist: string;
   export let albumArt: string;
@@ -14,15 +16,15 @@
   $: nameClass = nameWidth > infoWidth ? "name scroll" : "name";
   $: artistClass = artistWidth > infoWidth ? "artist scroll" : "artist";
 
-  const styles = [
-    `--name-color: ${nameColor}`,
-    `--artist-color: ${artistColor}`,
-    `--background-color: ${backgroundColor}`,
-    `--corner-rounding: ${cornerRounding / 2}vh`,
-  ].join(";");
+  $: cssVariable(
+    ["name-color", nameColor],
+    ["artist-color", artistColor],
+    ["background-color", backgroundColor],
+    ["corner-rounding", `${cornerRounding / 2}vh`]
+  );
 </script>
 
-<div class="container" style={styles}>
+<div class="container">
   <img src={albumArt} alt="Album Art" class="album-art" />
   <div class="info" bind:clientWidth={infoWidth}>
     <div class={nameClass} bind:clientWidth={nameWidth}>
