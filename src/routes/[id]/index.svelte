@@ -51,7 +51,7 @@
     height: 100vh;
     display: flex;
     flex-direction: row;
-    background-color: #20213400;
+    background-color: #2021343f;
     border-radius: 20vh;
   }
 
@@ -72,7 +72,7 @@
 
   .name {
     width: fit-content;
-    padding-left: 25vh;
+    padding: 0 25vh 0 25vh;
     color: #8ab4f8;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 30vh;
@@ -82,7 +82,7 @@
 
   .artist {
     width: fit-content;
-    padding-left: 25vh;
+    padding: 0 25vh 0 25vh;
     color: #ffffff;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 20vh;
