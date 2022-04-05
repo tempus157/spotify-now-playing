@@ -31,3 +31,10 @@ export const get: RequestHandler<Params, Config> = async ({ params }) => {
     },
   };
 };
+
+export const put: RequestHandler<Params> = async ({ request, params }) => {
+  const config: Config = await request.json();
+  const UserModel = await getUserModel();
+  await UserModel.updateOne({ spotifyID: params.id }, { ...config });
+  return { status: 200 };
+};

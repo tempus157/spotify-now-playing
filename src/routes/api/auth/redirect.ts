@@ -39,7 +39,7 @@ export const get: RequestHandler = async ({ url }) => {
   ).json();
 
   const UserModel = await getUserModel();
-  await UserModel.findOneAndUpdate(
+  await UserModel.updateOne(
     { spotifyID: profile.id },
     { accessToken, refreshToken },
     { upsert: true, new: true, setDefaultsOnInsert: true }

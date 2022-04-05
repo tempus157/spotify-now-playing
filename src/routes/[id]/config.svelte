@@ -5,14 +5,18 @@
   import Title from "$components/Title.svelte";
   import type { Config } from "$routes/api/[id]/config";
 
+  let endpoint = `/api/${$page.params.id}/config`;
   let config: Config;
 
-  function hello() {
-    alert("Hello");
+  async function updateConfig() {
+    await fetch(endpoint, {
+      method: "PUT",
+      body: JSON.stringify(config),
+    });
   }
 
   onMount(async () => {
-    const res = await fetch(`/api/${$page.params.id}/config`);
+    const res = await fetch(endpoint);
     if (res.status !== 200) {
       goto("/");
     }
@@ -26,7 +30,7 @@
 
 <div>
   {#if config}
-    <form on:submit|preventDefault={hello}>
+    <form on:submit|preventDefault={updateConfig}>
       <label>
         <span>Song Name Color</span>
         <input type="color" bind:value={config.nameColor} />
