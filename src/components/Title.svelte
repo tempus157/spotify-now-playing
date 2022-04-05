@@ -1,5 +1,5 @@
 <script lang="ts">
-  const name = "Spotify Overlay";
+  const name = "Spotify Now Playing";
   export let value: string | null = null;
 </script>
 

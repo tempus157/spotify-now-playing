@@ -48,7 +48,7 @@ export const get: RequestHandler = async ({ url }) => {
   return {
     status: 302,
     headers: {
-      location: indexURI,
+      location: `${indexURI}/${profile.id}/config`,
     },
   };
 };
