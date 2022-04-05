@@ -1,5 +1,7 @@
+import { clientID, clientSecret } from "$libs/env";
 import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
+import type { User } from "$libs/mongoose";
 
 type Params = {
   id: string;
@@ -10,6 +12,27 @@ export type NowPlaying = {
   artists: string[];
   albumArt: string;
 };
+
+async function refreshToken(user: User) {
+  const headers = {
+    Authorization: `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
+      "base64"
+    )}`,
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
+
+  const body = new URLSearchParams();
+  body.set("grant_type", "refresh_token");
+  body.set("refresh_token", user.refreshToken);
+
+  return await (
+    await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers,
+      body,
+    })
+  ).json();
+}
 
 export const get: RequestHandler<Params, NowPlaying> = async ({
   params,
@@ -25,6 +48,13 @@ export const get: RequestHandler<Params, NowPlaying> = async ({
     return { status: 404 };
   } else if (secret !== user._id.toString()) {
     return { status: 401 };
+  }
+
+  if (user.tokenExpiration <= Date.now()) {
+    const token = await refreshToken(user);
+    user.tokenExpiration = Date.now() + token.expires_in * 1000;
+    user.accessToken = token.access_token;
+    user.save();
   }
 
   const res = await fetch(

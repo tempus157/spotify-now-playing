@@ -3,6 +3,7 @@ import { mongoURI } from "$libs/env";
 
 export interface User {
   spotifyID: string;
+  tokenExpiration: number;
   accessToken: string;
   refreshToken: string;
   nameColor: string;
@@ -16,6 +17,7 @@ let isConnected = false;
 
 const schema = new Schema<User>({
   spotifyID: { type: String, required: true, unique: true },
+  tokenExpiration: { type: Number, required: true },
   accessToken: { type: String, required: true },
   refreshToken: { type: String, required: true },
   nameColor: { type: String, required: true, default: "#8ab4f8" },

@@ -27,6 +27,8 @@ async function fetchToken(code: string) {
 export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get("code");
   const token = await fetchToken(code);
+
+  const tokenExpiration = Date.now() + token.expires_in * 1000;
   const accessToken = token.access_token;
   const refreshToken = token.refresh_token;
 
@@ -41,7 +43,7 @@ export const get: RequestHandler = async ({ url }) => {
   const UserModel = await getUserModel();
   await UserModel.updateOne(
     { spotifyID: profile.id },
-    { accessToken, refreshToken },
+    { tokenExpiration, accessToken, refreshToken },
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
 
