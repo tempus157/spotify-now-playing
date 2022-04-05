@@ -21,8 +21,8 @@ const schema = new Schema<User>({
   nameColor: { type: String, required: true, default: "#8ab4f8" },
   artistColor: { type: String, required: true, default: "#ffffff" },
   backgroundColor: { type: String, required: true, default: "#202124" },
-  backgroundOpacity: { type: Number, required: true, default: 25 },
-  cornerRounding: { type: Number, required: true, default: 40 },
+  backgroundOpacity: { type: Number, required: true, default: 50 },
+  cornerRounding: { type: Number, required: true, default: 50 },
 });
 
 let isConnected = false;
