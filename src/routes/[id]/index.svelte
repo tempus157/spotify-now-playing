@@ -2,12 +2,12 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import Title from "$components/Title.svelte";
-  import type { Output } from "$routes/api/[id]";
+  import type { NowPlaying } from "$routes/api/[id]";
 
   let infoWidth: number;
   let nameWidth: number;
   let artistWidth: number;
-  let output: Output | null;
+  let nowPlaying: NowPlaying | null;
 
   $: nameClass = nameWidth > infoWidth ? "name scroll" : "name";
   $: artistClass = artistWidth > infoWidth ? "artist scroll" : "artist";
@@ -15,7 +15,7 @@
   onMount(() => {
     async function fetchData() {
       const res = await fetch(`/api/${$page.params.id}`);
-      output = res.status === 200 ? await res.json() : null;
+      nowPlaying = res.status === 200 ? await res.json() : null;
     }
 
     fetchData();
@@ -27,20 +27,20 @@
   <Title value="Overlay" />
 </svelte:head>
 
-{#if !output}
-  <div />
-{:else}
+{#if nowPlaying}
   <div class="container">
-    <img src={output.albumArt} alt="Album Art" class="album-art" />
+    <img src={nowPlaying.albumArt} alt="Album Art" class="album-art" />
     <div class="info" bind:clientWidth={infoWidth}>
       <div class={nameClass} bind:clientWidth={nameWidth}>
-        {output.name}
+        {nowPlaying.name}
       </div>
       <div class={artistClass} bind:clientWidth={artistWidth}>
-        {output.artists.join(", ")}
+        {nowPlaying.artists.join(", ")}
       </div>
     </div>
   </div>
+{:else}
+  <div />
 {/if}
 
 <style>

@@ -4,13 +4,13 @@ type Params = {
   id: string;
 };
 
-export type Output = {
+export type NowPlaying = {
   name: string;
   artists: string[];
   albumArt: string;
 };
 
-export const get: RequestHandler<Params, Output> = async ({ params }) => {
+export const get: RequestHandler<Params, NowPlaying> = async ({ params }) => {
   const res = await fetch(
     "https://api.spotify.com/v1/me/player/currently-playing",
     {
