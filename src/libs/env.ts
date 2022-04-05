@@ -8,6 +8,7 @@ function loadVariable(name: string) {
   return result;
 }
 
-export const cliendID = loadVariable("CLIENT_ID");
+export const clientID = loadVariable("CLIENT_ID");
 export const clientSecret = loadVariable("CLIENT_SECRET");
+export const indexURI = loadVariable("INDEX_URI");
 export const mongoURI = loadVariable("MONGO_URI");
