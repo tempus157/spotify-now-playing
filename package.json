@@ -18,6 +18,7 @@
     "@types/passport-spotify": "^2.0.1",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
+    "dotenv": "^16.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-svelte3": "^3.2.1",
     "mongoose": "^6.2.10",
