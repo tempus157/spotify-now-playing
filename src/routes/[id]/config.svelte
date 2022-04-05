@@ -5,7 +5,7 @@
   import Title from "$components/Title.svelte";
   import type { Config } from "$routes/api/[id]/config";
 
-  let endpoint = `/api/${$page.params.id}/config`;
+  const endpoint = `/api/${$page.params.id}/config`;
   let config: Config;
 
   async function updateConfig() {

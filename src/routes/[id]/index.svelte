@@ -2,9 +2,9 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import Title from "$components/Title.svelte";
+  import Player from "$components/Player.svelte";
   import type { NowPlaying } from "$routes/api/[id]";
   import type { Config } from "$routes/api/[id]/config";
-  import Player from "$components/Player.svelte";
 
   let config: Config | null;
   let nowPlaying: NowPlaying | null;
