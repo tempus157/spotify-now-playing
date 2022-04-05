@@ -6,14 +6,11 @@ type Output = {
 };
 
 export const get: RequestHandler<Record<string, string>, Output> = () => {
-  const redirectURI = `${indexURI}/api/auth/redirect`;
-  const scope = "user-read-currently-playing user-read-email";
-
   const url = new URL("https://accounts.spotify.com/authorize?");
   url.searchParams.set("response_type", "code");
   url.searchParams.set("client_id", clientID);
-  url.searchParams.set("redirect_uri", redirectURI);
-  url.searchParams.set("scope", scope);
+  url.searchParams.set("redirect_uri", `${indexURI}/api/auth/redirect`);
+  url.searchParams.set("scope", "user-read-currently-playing user-read-email");
 
   return {
     status: 302,
