@@ -6,6 +6,7 @@ type Params = {
 };
 
 export type Config = {
+  secret: string;
   nameColor: string;
   artistColor: string;
   backgroundColor: string;
@@ -23,6 +24,7 @@ export const get: RequestHandler<Params, Config> = async ({ params }) => {
   return {
     status: 200,
     body: {
+      secret: user._id.toString(),
       nameColor: user.nameColor,
       artistColor: user.artistColor,
       backgroundColor: user.backgroundColor,

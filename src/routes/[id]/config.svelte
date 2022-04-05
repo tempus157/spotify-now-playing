@@ -15,6 +15,12 @@
     });
   }
 
+  async function copyURL() {
+    const url = new URL(`${import.meta.env.VITE_INDEX_URI}/${$page.params.id}`);
+    url.searchParams.append("secret", config.secret);
+    await navigator.clipboard.writeText(url.toString());
+  }
+
   onMount(async () => {
     const res = await fetch(endpoint);
     if (res.status !== 200) {
@@ -71,7 +77,7 @@
       <button>Save Config</button>
     </form>
 
-    <button>Copy URL</button>
+    <button on:click={copyURL}>Copy URL</button>
   {:else}
     <div>Loading...</div>
   {/if}
