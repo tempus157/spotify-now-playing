@@ -45,7 +45,7 @@
       <span>{cornerRounding}%</span>
     </label>
 
-    <button>Save Preferences</button>
+    <button>Save Config</button>
   </form>
 
   <button>Copy URL</button>
