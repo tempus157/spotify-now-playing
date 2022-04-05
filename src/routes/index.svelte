@@ -7,7 +7,7 @@
 </svelte:head>
 
 <div>
-  <a href="/config">
+  <a href="/api/auth">
     <button class="connect">
       <img src="/static/spotify.png" alt="Spotify Logo" />
       <span>Connect Spotify</span>
