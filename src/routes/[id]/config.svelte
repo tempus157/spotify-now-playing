@@ -4,7 +4,7 @@
   let nameColor = "#8ab4f8";
   let artistColor = "#ffffff";
   let backgroundColor = "#202124";
-  let backgroundAlpha = 0;
+  let backgroundOpacity = 25;
   let cornerRounding = 40;
 
   function hello() {
@@ -34,9 +34,9 @@
     </label>
 
     <label>
-      <span>Background Alpha</span>
-      <input type="range" min="0" max="255" bind:value={backgroundAlpha} />
-      <span>{backgroundAlpha}</span>
+      <span>Background Opacity</span>
+      <input type="range" min="0" max="100" bind:value={backgroundOpacity} />
+      <span>{backgroundOpacity}%</span>
     </label>
 
     <label>
