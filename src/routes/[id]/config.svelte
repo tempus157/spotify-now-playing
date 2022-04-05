@@ -13,12 +13,14 @@
       method: "PUT",
       body: JSON.stringify(config),
     });
+    alert("Config saved.");
   }
 
   async function copyURL() {
     const url = new URL(`${import.meta.env.VITE_INDEX_URI}/${$page.params.id}`);
     url.searchParams.append("secret", config.secret);
     await navigator.clipboard.writeText(url.toString());
+    alert("Copied. Please do not share this with anyone.");
   }
 
   onMount(async () => {
