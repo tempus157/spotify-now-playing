@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { mongoURI } from "$libs/env";
+import { mongoURI } from "./env/private";
 
 export interface User {
   spotifyID: string;

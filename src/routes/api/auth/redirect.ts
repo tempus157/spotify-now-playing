@@ -1,4 +1,5 @@
-import { clientID, clientSecret, indexURI } from "$libs/env";
+import { clientID, clientSecret } from "$libs/env/private";
+import { indexURI } from "$libs/env/public";
 import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
 

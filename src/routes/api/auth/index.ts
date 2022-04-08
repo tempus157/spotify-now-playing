@@ -1,4 +1,5 @@
-import { clientID, indexURI } from "$libs/env";
+import { clientID } from "$libs/env/private";
+import { indexURI } from "$libs/env/public";
 import type { RequestHandler } from "@sveltejs/kit";
 
 type Output = {

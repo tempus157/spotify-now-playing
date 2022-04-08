@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
+  import { indexURI } from "$libs/env/public";
   import Title from "$components/Title.svelte";
   import type { Config } from "$routes/api/[id]/config";
 
@@ -17,7 +18,7 @@
   }
 
   async function copyURL() {
-    const url = new URL(`${import.meta.env.VITE_INDEX_URI}/${$page.params.id}`);
+    const url = new URL(`${indexURI}/${$page.params.id}`);
     url.searchParams.append("secret", config.secret);
     await navigator.clipboard.writeText(url.toString());
     alert("Copied. Please do not share this with anyone.");
