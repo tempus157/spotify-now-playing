@@ -24,8 +24,8 @@
     padding: 1rem;
     display: flex;
     align-items: center;
-    background-color: #1db954;
-    border-color: transparent;
+    background-color: var(--accent-color);
+    border: 0;
     border-radius: 9999px;
   }
 

@@ -5,6 +5,7 @@
   import { indexURI } from "$libs/env/public";
   import Title from "$components/Title.svelte";
   import type { Config } from "$routes/api/[id]/config";
+  import ColorSelector from "$components/ColorSelector.svelte";
 
   const endpoint = `/api/${$page.params.id}/config`;
   let config: Config;
@@ -40,23 +41,23 @@
 <div>
   {#if config}
     <form on:submit|preventDefault={updateConfig}>
-      <label>
-        <span>Song Name Color</span>
-        <input type="color" bind:value={config.nameColor} />
-      </label>
+      <div>
+        <span class="label">Song Name Color</span>
+        <ColorSelector bind:value={config.nameColor} />
+      </div>
 
-      <label>
-        <span>Artist Color</span>
-        <input type="color" bind:value={config.artistColor} />
-      </label>
+      <div>
+        <span class="label">Artist Color</span>
+        <ColorSelector bind:value={config.artistColor} />
+      </div>
 
-      <label>
-        <span>Background Color</span>
-        <input type="color" bind:value={config.backgroundColor} />
-      </label>
+      <div>
+        <span class="label">Background Color</span>
+        <ColorSelector bind:value={config.backgroundColor} />
+      </div>
 
-      <label>
-        <span>Background Opacity</span>
+      <div>
+        <span class="label">Background Opacity</span>
         <input
           type="range"
           min="0"
@@ -64,10 +65,10 @@
           bind:value={config.backgroundOpacity}
         />
         <span>{config.backgroundOpacity}%</span>
-      </label>
+      </div>
 
-      <label>
-        <span>Corner Rounding</span>
+      <div>
+        <span class="label">Corner Rounding</span>
         <input
           type="range"
           min="0"
@@ -75,19 +76,45 @@
           bind:value={config.cornerRounding}
         />
         <span>{config.cornerRounding}%</span>
-      </label>
+      </div>
 
       <button>Save Config</button>
+      <button type="button" on:click={copyURL}>Copy URL</button>
     </form>
-
-    <button on:click={copyURL}>Copy URL</button>
   {:else}
     <div>Loading...</div>
   {/if}
 </div>
 
 <style>
-  label {
-    display: block;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 40rem;
+  }
+
+  form div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  form div .label {
+    width: 18rem;
+  }
+
+  form div input {
+    flex-grow: 1;
+  }
+
+  form button {
+    padding: 1rem;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 1.6rem;
+    border: 0;
+    border-radius: 9999px;
+    cursor: pointer;
   }
 </style>
