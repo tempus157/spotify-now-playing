@@ -16,23 +16,27 @@
 </div>
 
 <style>
+  a {
+    text-decoration: none;
+  }
+
   .connect {
-    padding: 10px;
+    padding: 1rem;
     display: flex;
     align-items: center;
     background-color: #1db954;
     border-color: transparent;
-    border-radius: 100px;
+    border-radius: 9999px;
   }
 
   .connect img {
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
   }
 
   .connect span {
-    margin: 0 5px 0 10px;
+    margin: 0 0.5rem 0 1rem;
     color: white;
-    font-size: x-large;
+    font-size: 2.2rem;
   }
 </style>
