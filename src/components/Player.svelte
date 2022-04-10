@@ -28,10 +28,10 @@
   <img src={albumArt} alt="Album Art" class="album-art" />
   <div class="info" bind:clientWidth={infoWidth}>
     <div class={nameClass} bind:clientWidth={nameWidth}>
-      {songName}입니다
+      {songName}
     </div>
     <div class={artistClass} bind:clientWidth={artistWidth}>
-      {artist}입니다
+      {artist}
     </div>
   </div>
 </div>
