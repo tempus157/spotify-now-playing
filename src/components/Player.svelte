@@ -28,16 +28,24 @@
   <img src={albumArt} alt="Album Art" class="album-art" />
   <div class="info" bind:clientWidth={infoWidth}>
     <div class={nameClass} bind:clientWidth={nameWidth}>
-      {songName}
+      {songName}입니다
     </div>
     <div class={artistClass} bind:clientWidth={artistWidth}>
-      {artist}
+      {artist}입니다
     </div>
   </div>
 </div>
 
 <style>
-  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap");
+  @font-face {
+    font-family: "Product Sans Bold";
+    src: url("/fonts/Product Sans Bold.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Spoqa Han Sans Neo Bold";
+    src: url("/fonts/SpoqaHanSansNeo-Bold.ttf") format("truetype");
+  }
 
   .container {
     width: 100vw;
@@ -49,15 +57,12 @@
   }
 
   .album-art {
-    position: relative;
     width: 100vh;
     height: 100vh;
     border-radius: var(--corner-rounding);
   }
 
   .info {
-    width: calc(100vw - 100vh);
-    padding-bottom: 10vh;
     align-self: center;
     overflow: hidden;
     white-space: nowrap;
@@ -67,9 +72,8 @@
     width: fit-content;
     padding: 0 25vh 0 25vh;
     color: var(--name-color);
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Product Sans Bold", "Spoqa Han Sans Neo Bold", serif;
     font-size: 30vh;
-    line-height: 120%;
     text-shadow: 0 0 1px #000, 0 0 2px #000;
   }
 
@@ -77,9 +81,8 @@
     width: fit-content;
     padding: 0 25vh 0 25vh;
     color: var(--artist-color);
-    font-family: "Noto Sans KR", sans-serif;
+    font-family: "Product Sans Bold", "Spoqa Han Sans Neo Bold", sans-serif;
     font-size: 20vh;
-    line-height: 120%;
     text-shadow: 0 0 1px #000, 0 0 2px #000;
   }
 
