@@ -1,5 +1,5 @@
-import { clientID } from "$libs/config";
 import type { RequestHandler } from "@sveltejs/kit";
+import { clientID } from "$libs/config";
 
 type Params = Record<string, string>;
 type Output = {

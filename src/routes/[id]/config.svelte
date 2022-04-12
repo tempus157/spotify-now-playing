@@ -3,8 +3,8 @@
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
   import Title from "$components/Title.svelte";
-  import type { Config } from "$routes/api/[id]/config";
   import ColorSelector from "$components/ColorSelector.svelte";
+  import type { Config } from "$routes/api/[id]/config";
 
   const endpoint = `/api/${$page.params.id}/config`;
   let config: Config;

@@ -1,5 +1,5 @@
-import { UserModel } from "$libs/models";
 import type { RequestHandler } from "@sveltejs/kit";
+import { UserModel } from "$libs/models";
 
 type Params = {
   id: string;

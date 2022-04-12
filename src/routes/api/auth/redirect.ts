@@ -1,6 +1,6 @@
+import type { RequestHandler } from "@sveltejs/kit";
 import { clientID, clientSecret } from "$libs/config";
 import { UserModel } from "$libs/models";
-import type { RequestHandler } from "@sveltejs/kit";
 
 export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get("code");
