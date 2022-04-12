@@ -1,6 +1,6 @@
-import { getUserModel } from "$libs/mongoose";
+import { UserModel } from "$libs/models";
 import type { RequestHandler } from "@sveltejs/kit";
-import type { User } from "$libs/mongoose";
+import type { User } from "$libs/models";
 import { clientID, clientSecret } from "$libs/config";
 
 type Params = {
@@ -18,7 +18,6 @@ export const get: RequestHandler<Params, NowPlaying> = async ({
   url,
 }) => {
   const secret = url.searchParams.get("secret");
-  const UserModel = await getUserModel();
   const user = await UserModel.findOne({ spotifyID: params.id });
 
   if (!secret) {

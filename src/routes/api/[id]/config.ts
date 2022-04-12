@@ -1,4 +1,4 @@
-import { getUserModel } from "$libs/mongoose";
+import { UserModel } from "$libs/models";
 import type { RequestHandler } from "@sveltejs/kit";
 
 type Params = {
@@ -15,7 +15,6 @@ export type Config = {
 };
 
 export const get: RequestHandler<Params, Config> = async ({ params }) => {
-  const UserModel = await getUserModel();
   const user = await UserModel.findOne({ spotifyID: params.id });
   if (!user) {
     return { status: 404 };
@@ -36,7 +35,6 @@ export const get: RequestHandler<Params, Config> = async ({ params }) => {
 
 export const put: RequestHandler<Params> = async ({ request, params }) => {
   const config: Config = await request.json();
-  const UserModel = await getUserModel();
   await UserModel.updateOne({ spotifyID: params.id }, { ...config });
   return { status: 200 };
 };

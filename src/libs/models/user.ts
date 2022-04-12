@@ -1,7 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import { mongoURI } from "./config";
+import mongoose, { Document, Schema } from "mongoose";
 
-export interface User {
+export interface User extends Document {
   spotifyID: string;
   tokenExpiration: number;
   accessToken: string;
@@ -25,15 +24,6 @@ const schema = new Schema<User>({
   cornerRounding: { type: Number, required: true, default: 50 },
 });
 
-let isConnected = false;
-
-export async function getUserModel() {
-  if (!isConnected) {
-    await mongoose.connect(mongoURI);
-    isConnected = true;
-  }
-
-  return mongoose.models.User
-    ? mongoose.model<User>("User")
-    : mongoose.model<User>("User", schema);
-}
+export const UserModel = mongoose.models.User
+  ? mongoose.model<User>("User")
+  : mongoose.model<User>("User", schema);

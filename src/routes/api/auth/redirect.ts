@@ -1,5 +1,5 @@
 import { clientID, clientSecret } from "$libs/config";
-import { getUserModel } from "$libs/mongoose";
+import { UserModel } from "$libs/models";
 import type { RequestHandler } from "@sveltejs/kit";
 
 export const get: RequestHandler = async ({ url }) => {
@@ -17,7 +17,6 @@ export const get: RequestHandler = async ({ url }) => {
     })
   ).json();
 
-  const UserModel = await getUserModel();
   await UserModel.updateOne(
     { spotifyID: profile.id },
     { tokenExpiration, accessToken, refreshToken },
