@@ -1,11 +1,10 @@
-import { clientID, clientSecret } from "$libs/env/private";
-import { indexURI } from "$libs/env/public";
+import { clientID, clientSecret } from "$libs/config";
 import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
 
 export const get: RequestHandler = async ({ url }) => {
   const code = url.searchParams.get("code");
-  const token = await fetchToken(code);
+  const token = await fetchToken(code, url);
   const tokenExpiration = Date.now() + token.expires_in * 1000;
   const accessToken = token.access_token;
   const refreshToken = token.refresh_token;
@@ -28,12 +27,12 @@ export const get: RequestHandler = async ({ url }) => {
   return {
     status: 302,
     headers: {
-      location: `${indexURI}/${profile.id}/config`,
+      location: `${url.origin}/${profile.id}/config`,
     },
   };
 };
 
-async function fetchToken(code: string) {
+async function fetchToken(code: string, url: URL) {
   const headers = {
     Authorization: `Basic ${Buffer.from(`${clientID}:${clientSecret}`).toString(
       "base64"
@@ -44,7 +43,7 @@ async function fetchToken(code: string) {
   const body = new URLSearchParams();
   body.set("grant_type", "authorization_code");
   body.set("code", code);
-  body.set("redirect_uri", `${indexURI}/api/auth/redirect`);
+  body.set("redirect_uri", `${url.origin}/api/auth/redirect`);
 
   return await (
     await fetch("https://accounts.spotify.com/api/token", {

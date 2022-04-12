@@ -1,8 +1,11 @@
 import "dotenv/config";
-import { envError } from "./error";
 
 function load(name: string) {
-  return process.env[name] ?? envError(name);
+  const result = process.env[name];
+  if (!result) {
+    throw new Error(`Environment variable ${name} does not exist.`);
+  }
+  return result;
 }
 
 export const clientID = load("CLIENT_ID");

@@ -1,22 +1,25 @@
-import { clientID } from "$libs/env/private";
-import { indexURI } from "$libs/env/public";
+import { clientID } from "$libs/config";
 import type { RequestHandler } from "@sveltejs/kit";
 
+type Params = Record<string, string>;
 type Output = {
   state: string;
 };
 
-export const get: RequestHandler<Record<string, string>, Output> = () => {
-  const url = new URL("https://accounts.spotify.com/authorize?");
-  url.searchParams.set("response_type", "code");
-  url.searchParams.set("client_id", clientID);
-  url.searchParams.set("redirect_uri", `${indexURI}/api/auth/redirect`);
-  url.searchParams.set("scope", "user-read-currently-playing user-read-email");
+export const get: RequestHandler<Params, Output> = ({ url }) => {
+  const redirect = new URL("https://accounts.spotify.com/authorize?");
+  redirect.searchParams.set("response_type", "code");
+  redirect.searchParams.set("client_id", clientID);
+  redirect.searchParams.set("redirect_uri", `${url.origin}/api/auth/redirect`);
+  redirect.searchParams.set(
+    "scope",
+    "user-read-currently-playing user-read-email"
+  );
 
   return {
     status: 302,
     headers: {
-      location: url.toString(),
+      location: redirect.toString(),
     },
   };
 };

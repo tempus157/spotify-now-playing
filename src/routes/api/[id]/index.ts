@@ -1,7 +1,7 @@
 import { getUserModel } from "$libs/mongoose";
 import type { RequestHandler } from "@sveltejs/kit";
 import type { User } from "$libs/mongoose";
-import { clientID, clientSecret } from "$libs/env/private";
+import { clientID, clientSecret } from "$libs/config";
 
 type Params = {
   id: string;
